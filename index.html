@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student OS | Productivity Dashboard</title>
+    <meta name="description" content="A premium, all-in-one productivity dashboard for students to manage tasks, assignments, habits, and focus.">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" rel="stylesheet" />
+</head>
+<body>
+    <div id="app" class="app-layout">
+        <!-- Sidebar Navigation -->
+        <aside id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <span class="material-symbols-rounded logo-icon">auto_awesome</span>
+                    <span class="logo-text">Student OS</span>
+                </div>
+                <button id="mobile-menu-close" class="icon-btn mobile-only" aria-label="Close menu">
+                    <span class="material-symbols-rounded">close</span>
+                </button>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul class="nav-list">
+                    <li><a href="#" data-target="dashboard" class="nav-link active"><span class="material-symbols-rounded">dashboard</span> Dashboard</a></li>
+                    <li><a href="#" data-target="tasks" class="nav-link"><span class="material-symbols-rounded">check_circle</span> Tasks</a></li>
+                    <li><a href="#" data-target="assignments" class="nav-link"><span class="material-symbols-rounded">assignment</span> Assignments</a></li>
+                    <li><a href="#" data-target="planner" class="nav-link"><span class="material-symbols-rounded">calendar_month</span> Study Planner</a></li>
+                    <li><a href="#" data-target="pomodoro" class="nav-link"><span class="material-symbols-rounded">timer</span> Pomodoro</a></li>
+                    <li><a href="#" data-target="habits" class="nav-link"><span class="material-symbols-rounded">local_florist</span> Habits</a></li>
+                    <li><a href="#" data-target="gpa" class="nav-link"><span class="material-symbols-rounded">school</span> Grades & GPA</a></li>
+                    <li><a href="#" data-target="notes" class="nav-link"><span class="material-symbols-rounded">edit_note</span> Notes</a></li>
+                    <li><a href="#" data-target="analytics" class="nav-link"><span class="material-symbols-rounded">insights</span> Analytics</a></li>
+                </ul>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="#" data-target="settings" class="nav-link"><span class="material-symbols-rounded">settings</span> Settings</a>
+                <div class="user-profile">
+                    <div class="avatar" id="sidebar-avatar">S</div>
+                    <div class="user-info">
+                        <span class="user-name" id="sidebar-name">Student</span>
+                        <span class="user-status">Online</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main id="main-content" class="main-content">
+            <!-- Top Bar -->
+            <header class="top-bar">
+                <div class="top-bar-left">
+                    <button id="mobile-menu-toggle" class="icon-btn mobile-only" aria-label="Open menu">
+                        <span class="material-symbols-rounded">menu</span>
+                    </button>
+                    <div class="greeting-area">
+                        <h1 id="top-greeting">Good morning, Student</h1>
+                        <p id="top-date">Monday, January 1</p>
+                    </div>
+                </div>
+                <div class="top-bar-right">
+                    <div class="global-search">
+                        <span class="material-symbols-rounded search-icon">search</span>
+                        <input type="text" id="global-search-input" placeholder="Quick search..." aria-label="Search">
+                    </div>
+                    <button id="theme-toggle" class="icon-btn" aria-label="Toggle Theme">
+                        <span class="material-symbols-rounded" id="theme-icon">light_mode</span>
+                    </button>
+                    <button id="quick-add-btn" class="btn btn-primary btn-icon-text">
+                        <span class="material-symbols-rounded">add</span>
+                        <span>Quick Add</span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Views Container -->
+            <div id="views" class="views-container">
+                
+                <!-- DASHBOARD VIEW -->
+                <section id="view-dashboard" class="view active fade-in">
+                    <div class="dashboard-grid">
+                        <div class="summary-cards">
+                            <div class="card stat-card">
+                                <div class="stat-icon task-icon"><span class="material-symbols-rounded">task_alt</span></div>
+                                <div class="stat-info">
+                                    <h3>Tasks Due Today</h3>
+                                    <p class="stat-value" id="dash-tasks-due">0</p>
+                                </div>
+                            </div>
+                            <div class="card stat-card">
+                                <div class="stat-icon assignment-icon"><span class="material-symbols-rounded">notification_important</span></div>
+                                <div class="stat-info">
+                                    <h3>Next Deadline</h3>
+                                    <p class="stat-value" id="dash-next-deadline">None</p>
+                                </div>
+                            </div>
+                            <div class="card stat-card">
+                                <div class="stat-icon focus-icon"><span class="material-symbols-rounded">psychology</span></div>
+                                <div class="stat-info">
+                                    <h3>Focus Time</h3>
+                                    <p class="stat-value" id="dash-focus-time">0h 0m</p>
+                                </div>
+                            </div>
+                            <div class="card stat-card">
+                                <div class="stat-icon habit-icon"><span class="material-symbols-rounded">local_fire_department</span></div>
+                                <div class="stat-info">
+                                    <h3>Best Streak</h3>
+                                    <p class="stat-value" id="dash-best-streak">0</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="main-panels">
+                            <div class="card panel-tasks">
+                                <div class="panel-header">
+                                    <h2>Today's Priorities</h2>
+                                    <button class="text-btn" onclick="app.navigate('tasks')">View All</button>
+                                </div>
+                                <ul class="dash-list" id="dash-priority-list">
+                                    <!-- Populated by JS -->
+                                    <li class="empty-state">No priorities for today!</li>
+                                </ul>
+                            </div>
+
+                            <div class="card panel-schedule">
+                                <div class="panel-header">
+                                    <h2>Upcoming Schedule</h2>
+                                    <button class="icon-btn" onclick="app.navigate('planner')"><span class="material-symbols-rounded">calendar_today</span></button>
+                                </div>
+                                <div class="timeline" id="dash-timeline">
+                                    <!-- Populated by JS -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="side-panels">
+                            <div class="card panel-pomodoro-mini">
+                                <div class="panel-header">
+                                    <h2>Quick Focus</h2>
+                                </div>
+                                <div class="mini-timer-display" id="mini-timer">25:00</div>
+                                <div class="mini-timer-controls">
+                                    <button class="btn btn-primary" id="mini-timer-start">Start Focus</button>
+                                    <button class="icon-btn" onclick="app.navigate('pomodoro')"><span class="material-symbols-rounded">open_in_new</span></button>
+                                </div>
+                            </div>
+
+                            <div class="card panel-habits-mini">
+                                <div class="panel-header">
+                                    <h2>Daily Habits</h2>
+                                </div>
+                                <div class="habit-mini-list" id="dash-habit-list">
+                                    <!-- Populated by JS -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- TASKS VIEW -->
+                <section id="view-tasks" class="view fade-in">
+                    <div class="view-header">
+                        <h2>Task Manager</h2>
+                        <div class="view-actions">
+                            <div class="filter-group">
+                                <select id="task-filter" class="input-select">
+                                    <option value="all">All Tasks</option>
+                                    <option value="pending">Pending</option>
+                                    <option value="completed">Completed</option>
+                                    <option value="today">Due Today</option>
+                                </select>
+                            </div>
+                            <button id="btn-add-task" class="btn btn-primary"><span class="material-symbols-rounded">add</span> Add Task</button>
+                        </div>
+                    </div>
+                    <div class="tasks-container">
+                        <div class="task-list-wrapper">
+                            <ul id="main-task-list" class="task-list">
+                                <!-- Populated by JS -->
+                            </ul>
+                            <div id="tasks-empty-state" class="empty-state-large hidden">
+                                <span class="material-symbols-rounded empty-icon">done_all</span>
+                                <h3>You're all caught up!</h3>
+                                <p>No tasks found for the current filter.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ASSIGNMENTS VIEW -->
+                <section id="view-assignments" class="view fade-in">
+                    <div class="view-header">
+                        <h2>Assignment Tracker</h2>
+                        <button id="btn-add-assignment" class="btn btn-primary"><span class="material-symbols-rounded">add</span> Add Assignment</button>
+                    </div>
+                    <div class="assignments-grid" id="assignments-grid">
+                        <!-- Populated by JS -->
+                    </div>
+                     <div id="assignments-empty-state" class="empty-state-large hidden">
+                        <span class="material-symbols-rounded empty-icon">assignment_turned_in</span>
+                        <h3>No upcoming assignments</h3>
+                        <p>Enjoy your free time or get ahead on studying!</p>
+                    </div>
+                </section>
+
+                <!-- STUDY PLANNER VIEW -->
+                <section id="view-planner" class="view fade-in">
+                    <div class="view-header">
+                        <h2>Study Planner</h2>
+                        <button id="btn-add-session" class="btn btn-primary"><span class="material-symbols-rounded">add</span> Plan Session</button>
+                    </div>
+                    <div class="planner-layout">
+                        <div class="calendar-panel card">
+                            <!-- Simple custom calendar/timeline view -->
+                            <div class="calendar-header">
+                                <button class="icon-btn" id="cal-prev"><span class="material-symbols-rounded">chevron_left</span></button>
+                                <h3 id="cal-current-week">This Week</h3>
+                                <button class="icon-btn" id="cal-next"><span class="material-symbols-rounded">chevron_right</span></button>
+                            </div>
+                            <div class="week-grid" id="week-grid">
+                                <!-- Populated by JS -->
+                            </div>
+                        </div>
+                        <div class="sessions-panel card">
+                            <h3>Scheduled Sessions</h3>
+                            <ul class="session-list" id="planned-sessions-list">
+                                <!-- Populated by JS -->
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- POMODORO VIEW -->
+                <section id="view-pomodoro" class="view fade-in">
+                    <div class="pomodoro-container">
+                        <div class="timer-card card">
+                            <div class="timer-modes">
+                                <button class="mode-btn active" data-mode="pomodoro">Focus</button>
+                                <button class="mode-btn" data-mode="shortBreak">Short Break</button>
+                                <button class="mode-btn" data-mode="longBreak">Long Break</button>
+                            </div>
+                            
+                            <div class="timer-display-wrapper">
+                                <svg class="progress-ring" width="300" height="300">
+                                    <circle class="progress-ring-circle-bg" stroke-width="8" fill="transparent" r="140" cx="150" cy="150"/>
+                                    <circle class="progress-ring-circle" id="timer-progress" stroke-width="8" fill="transparent" r="140" cx="150" cy="150"/>
+                                </svg>
+                                <div class="time-display" id="main-time-display">25:00</div>
+                                <div class="timer-status" id="timer-status-text">Ready to focus</div>
+                            </div>
+
+                            <div class="timer-controls">
+                                <button class="btn btn-large btn-primary" id="timer-start-btn">Start</button>
+                                <button class="icon-btn btn-large" id="timer-reset-btn" aria-label="Reset Timer"><span class="material-symbols-rounded">replay</span></button>
+                            </div>
+                            
+                            <div class="session-counter">
+                                <span class="material-symbols-rounded">history_toggle_off</span>
+                                <span>Sessions today: <strong id="pomo-session-count">0</strong></span>
+                            </div>
+                        </div>
+                        
+                        <div class="timer-settings card">
+                            <h3>Timer Settings</h3>
+                            <div class="setting-group">
+                                <label>Focus Duration (min)</label>
+                                <input type="number" id="setting-pomo-time" class="input" value="25" min="1" max="120">
+                            </div>
+                            <div class="setting-group">
+                                <label>Short Break (min)</label>
+                                <input type="number" id="setting-short-break" class="input" value="5" min="1" max="30">
+                            </div>
+                            <div class="setting-group">
+                                <label>Long Break (min)</label>
+                                <input type="number" id="setting-long-break" class="input" value="15" min="1" max="60">
+                            </div>
+                            <button id="save-timer-settings" class="btn btn-secondary w-full">Save Settings</button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- HABITS VIEW -->
+                <section id="view-habits" class="view fade-in">
+                    <div class="view-header">
+                        <h2>Habit Tracker</h2>
+                        <button id="btn-add-habit" class="btn btn-primary"><span class="material-symbols-rounded">add</span> New Habit</button>
+                    </div>
+                    <div class="habits-wrapper card">
+                        <div class="habit-grid-header" id="habit-grid-header">
+                            <!-- Days generated by JS -->
+                        </div>
+                        <div class="habit-list-container" id="main-habit-list">
+                             <!-- Populated by JS -->
+                        </div>
+                        <div id="habits-empty-state" class="empty-state-large hidden">
+                            <span class="material-symbols-rounded empty-icon">local_florist</span>
+                            <h3>Build healthy routines</h3>
+                            <p>Start tracking a new habit to see your progress.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- GPA CALCULATOR VIEW -->
+                <section id="view-gpa" class="view fade-in">
+                    <div class="view-header">
+                        <h2>Grade & GPA Calculator</h2>
+                        <button id="btn-add-course" class="btn btn-primary"><span class="material-symbols-rounded">add</span> Add Course</button>
+                    </div>
+                    <div class="gpa-layout">
+                        <div class="gpa-table-card card">
+                            <div class="gpa-table-header">
+                                <div class="col-course">Course Name</div>
+                                <div class="col-credits">Credits</div>
+                                <div class="col-grade">Grade</div>
+                                <div class="col-actions"></div>
+                            </div>
+                            <div class="gpa-rows-container" id="gpa-course-list">
+                                <!-- Populated by JS -->
+                            </div>
+                        </div>
+                        <div class="gpa-summary-card card">
+                            <h3>Semester Summary</h3>
+                            <div class="gpa-result">
+                                <div class="gpa-score" id="gpa-final-score">0.00</div>
+                                <div class="gpa-label">Estimated GPA</div>
+                            </div>
+                            <div class="gpa-stats">
+                                <div class="stat-row">
+                                    <span>Total Credits:</span>
+                                    <strong id="gpa-total-credits">0</strong>
+                                </div>
+                                <div class="stat-row">
+                                    <span>Scale:</span>
+                                    <strong>4.0</strong>
+                                </div>
+                            </div>
+                            <div class="gpa-scale-info">
+                                <small>A = 4.0 | B = 3.0 | C = 2.0 | D = 1.0 | F = 0.0</small>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- NOTES VIEW -->
+                <section id="view-notes" class="view fade-in">
+                    <div class="view-header">
+                        <h2>Notes Workspace</h2>
+                        <button id="btn-add-note" class="btn btn-primary"><span class="material-symbols-rounded">add</span> New Note</button>
+                    </div>
+                    <div class="notes-layout">
+                        <div class="notes-sidebar card">
+                            <div class="notes-search">
+                                <input type="text" class="input" id="search-notes" placeholder="Search notes...">
+                            </div>
+                            <ul class="note-list" id="note-sidebar-list">
+                                <!-- Populated by JS -->
+                            </ul>
+                        </div>
+                        <div class="note-editor card">
+                            <div id="note-empty-state" class="editor-empty">
+                                <span class="material-symbols-rounded">edit_document</span>
+                                <p>Select a note or create a new one</p>
+                            </div>
+                            <div id="note-editor-area" class="editor-area hidden">
+                                <div class="editor-header">
+                                    <input type="text" id="note-title-input" class="note-title-input" placeholder="Note Title">
+                                    <div class="editor-actions">
+                                        <button class="icon-btn" id="btn-pin-note" aria-label="Pin Note"><span class="material-symbols-rounded">push_pin</span></button>
+                                        <button class="icon-btn text-danger" id="btn-delete-note" aria-label="Delete Note"><span class="material-symbols-rounded">delete</span></button>
+                                    </div>
+                                </div>
+                                <div class="editor-toolbar">
+                                    <button class="format-btn" data-command="bold"><span class="material-symbols-rounded">format_bold</span></button>
+                                    <button class="format-btn" data-command="italic"><span class="material-symbols-rounded">format_italic</span></button>
+                                    <button class="format-btn" data-command="underline"><span class="material-symbols-rounded">format_underlined</span></button>
+                                    <div class="toolbar-divider"></div>
+                                    <button class="format-btn" data-command="insertUnorderedList"><span class="material-symbols-rounded">format_list_bulleted</span></button>
+                                    <button class="format-btn" data-command="insertOrderedList"><span class="material-symbols-rounded">format_list_numbered</span></button>
+                                </div>
+                                <div id="note-content-input" class="note-content-input" contenteditable="true" placeholder="Start typing your note here..."></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ANALYTICS VIEW -->
+                <section id="view-analytics" class="view fade-in">
+                    <div class="view-header">
+                        <h2>Analytics & Insights</h2>
+                    </div>
+                    <div class="analytics-grid">
+                        <div class="card analytics-summary">
+                            <h3>Productivity Score</h3>
+                            <div class="score-display">
+                                <svg class="score-ring" width="160" height="160">
+                                    <circle class="score-ring-bg" stroke-width="12" fill="transparent" r="70" cx="80" cy="80"/>
+                                    <circle class="score-ring-progress" id="analytics-score-ring" stroke-width="12" fill="transparent" r="70" cx="80" cy="80"/>
+                                </svg>
+                                <div class="score-value" id="analytics-score-val">0%</div>
+                            </div>
+                            <p class="score-caption" id="analytics-score-msg">Let's get to work!</p>
+                        </div>
+                        
+                        <div class="card analytics-stats-grid">
+                            <div class="a-stat">
+                                <span class="material-symbols-rounded">check_circle</span>
+                                <div class="a-stat-info">
+                                    <h4>Tasks Completed</h4>
+                                    <p id="a-tasks-completed">0</p>
+                                </div>
+                            </div>
+                            <div class="a-stat">
+                                <span class="material-symbols-rounded">timer</span>
+                                <div class="a-stat-info">
+                                    <h4>Focus Hours</h4>
+                                    <p id="a-focus-hours">0</p>
+                                </div>
+                            </div>
+                            <div class="a-stat">
+                                <span class="material-symbols-rounded">assignment_turned_in</span>
+                                <div class="a-stat-info">
+                                    <h4>Assignments Done</h4>
+                                    <p id="a-assignments-done">0</p>
+                                </div>
+                            </div>
+                            <div class="a-stat">
+                                <span class="material-symbols-rounded">local_florist</span>
+                                <div class="a-stat-info">
+                                    <h4>Habits Perfect Days</h4>
+                                    <p id="a-habits-perfect">0</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card analytics-chart-card">
+                            <h3>Task Completion Trend (Last 7 Days)</h3>
+                            <div class="css-chart-container">
+                                <div class="css-bar-chart" id="analytics-bar-chart">
+                                    <!-- Populated by JS -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SETTINGS VIEW -->
+                <section id="view-settings" class="view fade-in">
+                    <div class="view-header">
+                        <h2>Settings & Tools</h2>
+                    </div>
+                    <div class="settings-grid">
+                        <div class="card settings-card">
+                            <h3>Profile</h3>
+                            <div class="form-group">
+                                <label>Your Name</label>
+                                <input type="text" id="setting-name" class="input" value="Student">
+                            </div>
+                            <button id="btn-save-profile" class="btn btn-primary">Save Profile</button>
+                        </div>
+
+                        <div class="card settings-card">
+                            <h3>Appearance</h3>
+                            <div class="setting-row">
+                                <div>
+                                    <h4>Dark Mode</h4>
+                                    <p class="text-sm text-muted">Switch between light and dark themes</p>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" id="setting-dark-mode" checked>
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="card settings-card">
+                            <h3>Data Management</h3>
+                            <p class="text-sm text-muted mb-4">Export your data to a file or import a backup. Your data never leaves your browser.</p>
+                            <div class="data-actions">
+                                <button id="btn-export-data" class="btn btn-secondary"><span class="material-symbols-rounded">download</span> Export JSON</button>
+                                <button id="btn-import-data" class="btn btn-secondary" onclick="document.getElementById('import-file-input').click()"><span class="material-symbols-rounded">upload</span> Import JSON</button>
+                                <input type="file" id="import-file-input" accept=".json" class="hidden">
+                            </div>
+                            <div class="danger-zone mt-4 border-t pt-4">
+                                <h4 class="text-danger mb-2">Danger Zone</h4>
+                                <button id="btn-clear-data" class="btn btn-danger"><span class="material-symbols-rounded">delete_forever</span> Clear All Data</button>
+                            </div>
+                        </div>
+                        
+                        <div class="card settings-card tools-card">
+                            <h3>Quick Tools</h3>
+                            <div class="quick-tools-grid">
+                                <div class="tool-item">
+                                    <h4>Quick Calculator</h4>
+                                    <input type="text" id="tool-calc-input" class="input" placeholder="e.g. 25 * 4 / 2">
+                                    <div class="tool-result mt-2" id="tool-calc-result">= </div>
+                                </div>
+                                <div class="tool-item">
+                                    <h4>Word Count</h4>
+                                    <textarea id="tool-wc-input" class="input" rows="3" placeholder="Paste text here..."></textarea>
+                                    <div class="tool-result mt-2">Words: <strong id="tool-wc-result">0</strong></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- MODAL OVERLAY -->
+    <div id="modal-overlay" class="modal-overlay hidden">
+        
+        <!-- Quick Add Modal -->
+        <div id="modal-quick-add" class="modal-container hidden">
+            <div class="modal-header">
+                <h3>Quick Add</h3>
+                <button class="icon-btn close-modal"><span class="material-symbols-rounded">close</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="quick-add-options">
+                    <button class="quick-add-btn-large" data-type="task">
+                        <span class="material-symbols-rounded">check_circle</span>
+                        <span>Task</span>
+                    </button>
+                    <button class="quick-add-btn-large" data-type="assignment">
+                        <span class="material-symbols-rounded">assignment</span>
+                        <span>Assignment</span>
+                    </button>
+                    <button class="quick-add-btn-large" data-type="note">
+                        <span class="material-symbols-rounded">edit_note</span>
+                        <span>Note</span>
+                    </button>
+                    <button class="quick-add-btn-large" data-type="habit">
+                        <span class="material-symbols-rounded">local_florist</span>
+                        <span>Habit</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dynamic Form Modal Container -->
+        <div id="modal-dynamic" class="modal-container hidden">
+            <div class="modal-header">
+                <h3 id="modal-dynamic-title">Add Item</h3>
+                <button class="icon-btn close-modal"><span class="material-symbols-rounded">close</span></button>
+            </div>
+            <div class="modal-body" id="modal-dynamic-body">
+                <!-- Form injected via JS -->
+            </div>
+            <div class="modal-footer" id="modal-dynamic-footer">
+                <button class="btn btn-secondary close-modal">Cancel</button>
+                <button class="btn btn-primary" id="modal-dynamic-save">Save</button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- TOAST CONTAINER -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
