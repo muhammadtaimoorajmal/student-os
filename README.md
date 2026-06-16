@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://via.placeholder.com/1200x300/0f172a/6366f1?text=Student+OS" alt="Student OS Banner" />
+  <img src="https://dummyimage.com/1200x300/0f172a/6366f1.png&text=Student+OS" alt="Student OS Banner" />
   
   # Student OS | Productivity Dashboard
   
