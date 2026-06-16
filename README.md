@@ -12,11 +12,11 @@ Student OS is a modern, fast, and feature-rich offline web application designed 
 
 | Dashboard | Task Manager |
 |---|---|
-| ![Dashboard Placeholder](https://via.placeholder.com/600x350/1e293b/a78bfa?text=Dashboard+Screenshot) | ![Tasks Placeholder](https://via.placeholder.com/600x350/1e293b/a78bfa?text=Tasks+Screenshot) |
+| ![Dashboard Screenshot](./Screenshot%202026-06-16%20214355.png) | ![Tasks Screenshot](./Screenshot%202026-06-16%20214418.png) |
 
 | Pomodoro Timer | Grade Calculator |
 |---|---|
-| ![Pomodoro Placeholder](https://via.placeholder.com/600x350/1e293b/a78bfa?text=Pomodoro+Screenshot) | ![GPA Placeholder](https://via.placeholder.com/600x350/1e293b/a78bfa?text=GPA+Calculator+Screenshot) |
+| ![Pomodoro Screenshot](./Screenshot%202026-06-16%20214433.png) | ![GPA Screenshot](./Screenshot%202026-06-16%20214451.png) |
 
 ## ✨ Features
 
